@@ -239,6 +239,7 @@ void setColorConversion709( GLfloat conversionMatrix[9] )
 - (void)dealloc 
 {
     [self stopCameraCapture];
+    
     [videoOutput setSampleBufferDelegate:nil queue:dispatch_get_main_queue()];
     [audioOutput setSampleBufferDelegate:nil queue:dispatch_get_main_queue()];
     
@@ -807,7 +808,8 @@ void setColorConversion709( GLfloat conversionMatrix[9] )
 
 - (void)processAudioSampleBuffer:(CMSampleBufferRef)sampleBuffer;
 {
-    [self.audioEncodingTarget processAudioBuffer:sampleBuffer]; 
+//    NSLog(@"processAudioSampleBuffer");
+    [self.audioEncodingTarget processAudioBuffer:sampleBuffer];
 }
 
 - (void)convertYUVToRGBOutput;
@@ -906,10 +908,10 @@ void setColorConversion709( GLfloat conversionMatrix[9] )
 
 - (void)setAudioEncodingTarget:(GPUImageMovieWriter *)newValue;
 {
-    if (newValue) {
+    if (newValue && !addedAudioInputsDueToEncodingTarget) {
         /* Add audio inputs and outputs, if necessary */
         addedAudioInputsDueToEncodingTarget |= [self addAudioInputsAndOutputs];
-    } else if (addedAudioInputsDueToEncodingTarget) {
+    } else if (addedAudioInputsDueToEncodingTarget && !self.shouldKeepAudioInput) {
         /* Remove audio inputs and outputs, if they were added by previously setting the audio encoding target */
         [self removeAudioInputsAndOutputs];
         addedAudioInputsDueToEncodingTarget = NO;

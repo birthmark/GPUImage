@@ -76,6 +76,9 @@ void setColorConversion709( GLfloat conversionMatrix[9] );
 
 @property(nonatomic, assign) id<GPUImageVideoCameraDelegate> delegate;
 
+//始终保持音频采集打开，不然分段录制会有破音，默认false
+@property BOOL shouldKeepAudioInput;
+
 /// @name Initialization and teardown
 
 /** Begin a capture session

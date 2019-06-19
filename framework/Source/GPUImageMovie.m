@@ -38,11 +38,12 @@
 
 @implementation GPUImageMovie
 
+@synthesize audioEncodingIsFinished = _audioEncodingIsFinished;
+@synthesize videoEncodingIsFinished = _videoEncodingIsFinished;
 @synthesize url = _url;
 @synthesize asset = _asset;
 @synthesize runBenchmark = _runBenchmark;
 @synthesize playAtActualSpeed = _playAtActualSpeed;
-@synthesize delegate = _delegate;
 @synthesize shouldRepeat = _shouldRepeat;
 
 #pragma mark -
